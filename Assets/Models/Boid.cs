@@ -9,12 +9,19 @@ public class Boid : MonoBehaviour
 	private Vector3 maxVelocity = new Vector3(0.5f, 0.5f, 0.5f);
 	private Vector3 maxAcceleration = new Vector3(0.005f, 0.005f, 0.002f);
 	private Vector3 initialPosition;
-	private float maxDistance = 3.0f;
+	private float maxDistance = 5.0f;
 
 	// Use this for initialization
 	void Start()
 	{
-		velocity = new Vector3(0.2f, 0.2f, 0.2f);
+		velocity = max(
+            new Vector3(
+                Random.Range(-1f, 1f),
+                Random.Range(-1f, 1f),
+                Random.Range(-1f, 1f)
+            ),
+            maxVelocity
+		);
 		initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 	
