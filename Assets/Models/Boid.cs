@@ -14,14 +14,12 @@ public class Boid : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		velocity = max(
-            new Vector3(
-                Random.Range(-1f, 1f),
-                Random.Range(-1f, 1f),
-                Random.Range(-1f, 1f)
-            ),
-            maxVelocity
-		);
+		velocity = new Vector3(
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f),
+            Random.Range(-1f, 1f)
+        );
+        velocity = multiplyVector(velocity.normalized, maxVelocity);
 		initialPosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 	}
 	
@@ -40,11 +38,7 @@ public class Boid : MonoBehaviour
 	{
 		var acceleration = new Vector3(target.x, target.y, target.z);
 		acceleration -= transform.position;
-        acceleration = new Vector3(
-            acceleration.normalized.x * maxAcceleration.x,
-            acceleration.normalized.y * maxAcceleration.y,
-            acceleration.normalized.z * maxAcceleration.z
-        );
+        acceleration = multiplyVector(acceleration.normalized, maxAcceleration);
 		velocity += acceleration;
 		velocity = max(velocity, maxVelocity);
 	}
@@ -60,4 +54,13 @@ public class Boid : MonoBehaviour
 		maxVector.z = Mathf.Min(maxVector.z, v2.z);
 		return maxVector;
 	}
+
+    private Vector3 multiplyVector(Vector3 v1, Vector3 v2)
+    {
+        return new Vector3(
+            v1.x * v2.x,
+            v1.y * v2.y,
+            v1.z * v2.z
+        );
+    }
 }
