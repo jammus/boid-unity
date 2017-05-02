@@ -5,12 +5,17 @@ using UnityEngine;
 public class Spawner : MonoBehaviour {
 
     public GameObject boid;
+    private int BOID_COUNT = 30;
+    private Boid[] boids;
 
 	// Use this for initialization
 	void Start () {
-        for (var i = 0; i < 30; i++)
+        boids = new Boid[BOID_COUNT];
+        for (var i = 0; i < BOID_COUNT; i++)
         {
-            Instantiate(boid, new Vector3(0, 0, 0), Quaternion.identity);
+            var createdBoid = Instantiate(boid, new Vector3(0, 0, 0), Quaternion.identity).GetComponent<Boid>();
+            createdBoid.Initialise(boids);
+            boids[i] = createdBoid;
         }
 	}
 	
