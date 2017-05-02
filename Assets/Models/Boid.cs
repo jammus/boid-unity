@@ -9,7 +9,7 @@ public class Boid : MonoBehaviour
 	private Vector3 maxVelocity = new Vector3(0.5f, 0.5f, 0.5f);
 	private Vector3 maxAcceleration = new Vector3(0.005f, 0.005f, 0.002f);
 	private Vector3 initialPosition;
-	private float maxDistance = 5.0f;
+	private float maxDistance = 3.0f;
 
 	// Use this for initialization
 	void Start()
@@ -40,7 +40,11 @@ public class Boid : MonoBehaviour
 	{
 		var acceleration = new Vector3(target.x, target.y, target.z);
 		acceleration -= transform.position;
-		acceleration = max(acceleration.normalized, maxAcceleration);
+        acceleration = new Vector3(
+            acceleration.normalized.x * maxAcceleration.x,
+            acceleration.normalized.y * maxAcceleration.y,
+            acceleration.normalized.z * maxAcceleration.z
+        );
 		velocity += acceleration;
 		velocity = max(velocity, maxVelocity);
 	}
