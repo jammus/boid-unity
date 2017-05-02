@@ -7,7 +7,7 @@ public class Boid : MonoBehaviour
 
 	private Vector3 velocity;
 	private Vector3 maxVelocity = new Vector3(0.5f, 0.5f, 0.5f);
-	private Vector3 maxAcceleration = new Vector3(0.01f, 0.01f, 0.005f);
+	private Vector3 maxAcceleration = new Vector3(0.0075f, 0.0075f, 0.0015f);
 	private Vector3 initialPosition;
 	private float maxDistance = 3.0f;
 
@@ -32,6 +32,7 @@ public class Boid : MonoBehaviour
 			moveTo(initialPosition);
 		}
 		transform.position += velocity;
+        transform.rotation = Quaternion.FromToRotation(Vector3.up, velocity);
 	}
 
 	private void moveTo(Vector3 target)
